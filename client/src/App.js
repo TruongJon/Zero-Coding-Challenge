@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 
 function App() {
-  const [phrase, setPhrase] = useState([])
-  const [name,setName] = useState(null)
-  const [zip,setZip] = useState(null)
-  const [print,setPrint] = useState(false)
+  const [phrase, setPhrase] = useState([]) // Phrase after backend processing
+  const [name,setName] = useState(null) // Name from first input box
+  const [zip,setZip] = useState(null) // Zip code from second input box
+  const [print,setPrint] = useState(false) // Print status
 
+  // Sets the name of the user and the print status to false, in case of consecutive usage
   function getName(val)
   {
     console.warn(val.target.value)
@@ -13,6 +14,7 @@ function App() {
     setPrint(false)
   }
 
+  // Sets the zip of the user and the print status to false, in case of consecutive usage
   function getZip(val)
   {
     console.warn(val.target.value)
@@ -20,6 +22,7 @@ function App() {
     setPrint(false)
   }
 
+  // Sends the data as a JSON Object to the Flask backend for processing 
   function processData()
   {
     const userData = {
@@ -32,6 +35,7 @@ function App() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userData)
     };
+    // Routes to /create_phrase endpoint in ../backend/server.py
     fetch('/create_phrase', request).then(response => 
       response.json().then(data => {
         console.log(response)
